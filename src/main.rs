@@ -1,6 +1,8 @@
 #![feature(plugin)]
+#![feature(alloc_system)]
 #![plugin(rocket_codegen)]
 
+extern crate alloc_system;
 extern crate rocket;
 extern crate docopt;
 extern crate swerve;

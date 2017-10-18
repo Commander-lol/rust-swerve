@@ -18,6 +18,12 @@ exlude = [
 	"example/*",
 ]
 
+[badges]
+travis-ci = { repository = "commander-lol/rust-swerve", branch = "master" }
+
+[profile.release]
+lto = true
+
 [dependencies]
 
 rocket = "0.3.3"
