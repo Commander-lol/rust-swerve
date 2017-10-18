@@ -10,7 +10,7 @@ While swerve does nothing innovative, the goal is to have a fast performing file
 tear down time, as well as minimal request time spent inside the server itself. Current features are limited to
 serving files, but the roadmap includes API mocking to make front end development even easier.
 
-##Installation
+## Installation
 
 ### Prebuilt
 1. Download the binary for your OS from the [releases]() page

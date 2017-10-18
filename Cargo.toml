@@ -1,6 +1,6 @@
 [package]
 name = "swerve"
-version = "0.1.0"
+version = "0.1.1"
 description = "Quick and easy multithreaded file server for local front end development"
 
 authors = ["Louis Capitanchik <contact@louiscap.co>"]
@@ -19,7 +19,7 @@ exlude = [
 ]
 
 [badges]
-travis-ci = { repository = "commander-lol/rust-swerve", branch = "master" }
+travis-ci = { repository = "Commander-lol/rust-swerve", branch = "master" }
 
 [profile.release]
 lto = true
