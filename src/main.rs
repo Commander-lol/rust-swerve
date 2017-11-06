@@ -12,6 +12,7 @@ use docopt::Docopt;
 use rocket::response::NamedFile;
 
 use swerve::cli;
+use swerve::routing;
 
 #[get("/")]
 fn serve_root(args: rocket::State<cli::Args>) -> Option<NamedFile> {
@@ -79,6 +80,7 @@ fn main() {
 
     let mut server = rocket::custom(config, false)
         .manage(args.clone())
+        .mount("/upload", routes![swerve::routing::mock_upload::to_file])
         .mount("/", routes![serve_root, serve_files]);
 
     if !args.flag_quiet {
