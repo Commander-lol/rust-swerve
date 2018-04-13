@@ -1,0 +1,22 @@
+field_handling: Log
+file_handling: File
+server:
+  port: 9000
+requests:
+  - /users/@user_id : scripts/get_user_by_id.dyon
+  - /users :
+      failure_rate: 5
+      response_headers:
+        x-rate-limit: 100
+        x-rate-remaining: 96
+        x-rate-reset: 10/12/1990
+      response_type: application/json
+      response_body:
+        count: 2
+        data:
+          - id: 1
+            name: John baker
+            email: john@gmail.com
+          - id: 2
+            name: Bloobers Frank
+            email: bloob@gmail.com
