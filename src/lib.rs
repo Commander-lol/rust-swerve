@@ -11,6 +11,5 @@ extern crate formdata;
 extern crate hyper;
 extern crate rand;
 
-pub mod scripting;
 pub mod cli;
 pub mod routing;

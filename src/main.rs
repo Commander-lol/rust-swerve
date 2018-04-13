@@ -18,7 +18,6 @@ use rocket::http::ContentType;
 use rocket::{Response, Request};
 use swerve::cli;
 use swerve::routing;
-use swerve::scripting;
 use std::io::BufReader;
 use std::path::{Path, PathBuf};
 use rocket::response::Responder;
