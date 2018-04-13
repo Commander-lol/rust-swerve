@@ -14,6 +14,8 @@ Options:
     -a=<addr>, --address=<addr>     Address to bind to (e.g. 10.0.0.15); defaults to localhost
     -c=<path>, --config=<path>      Path to the .swerve config file
     -t=<num>, --threads=<num>       Number of worker threads to use for serving files; defaults to 32
+	-u, --upload                    Support file uploads to '/upload'
+	-U=<path>, --upload-path=<path> Set the url path that will accept file uploads. Implies -u if not present
 ";
 
 #[derive(Debug, Deserialize, Clone)]
@@ -26,4 +28,6 @@ pub struct Args {
     pub flag_help: bool,
     pub flag_quiet: bool,
     pub flag_no_index: bool,
+	pub flag_upload: bool,
+	pub flag_upload_path: Option<String>,
 }
