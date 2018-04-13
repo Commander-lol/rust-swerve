@@ -13,7 +13,7 @@ license = "GPL-3.0+"
 categories = ["command-line-utilities", "web-programming::http-server"]
 keywords = ["file-server", "executable"]
 
-exlude = [
+exclude = [
 	".travis.yml",
 	"example/*",
 ]
@@ -26,11 +26,14 @@ lto = true
 
 [dependencies]
 
-rocket = "0.3.3"
-rocket_codegen = "0.3.3"
-rocket_contrib = "0.3.3"
+rocket = "0.3.8"
+rocket_codegen = "0.3.8"
+rocket_contrib = "0.3.8"
 serde = "1"
 serde_derive = "1"
 docopt = "0.8"
 formdata = "0.12.2"
 hyper = "0.10"
+rand = "0.3"
+rhai = "0.7"
+serde_yaml = "0.7.3"
