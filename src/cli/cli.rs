@@ -1,3 +1,6 @@
+pub use std::path::PathBuf;
+pub use std::env::current_dir;
+
 pub const USAGE: &'static str = "
 Static file swerver and api mocker for local development. 
 For full documentation, visit https://swerve.louiscap.io.
@@ -39,4 +42,16 @@ pub struct Args {
 	pub flag_upload: bool,
 	pub flag_upload_path: Option<String>,
 	pub flag_license: bool,
+}
+
+impl Args {
+    pub fn get_dir(&self) -> PathBuf {
+        let dir_flag = self.flag_dir.clone();
+        PathBuf::from(
+            dir_flag.unwrap_or(
+            current_dir().unwrap_or(
+            PathBuf::from("")
+            ).to_string_lossy().into_owned())
+        )
+    }
 }
