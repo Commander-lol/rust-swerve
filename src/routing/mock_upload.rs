@@ -1,5 +1,5 @@
 use rocket::{Data, State};
-use formdata::{read_formdata};
+use formdata::{read_formdata, FilePart};
 use routing::request::ConvertedHeaders;
 use hyper::header::{Headers, ContentDisposition, DispositionParam};
 use rocket::request::FromRequest;
@@ -24,20 +24,9 @@ pub fn to_file(headers: ConvertedHeaders, conf: State<SwerveConfig>, upload: Dat
         create_dir("uploads");
 
         for file in data.files {
-            let (name, value) = file;
-            if name == String::from("upload") {
-                let content_disposition = value.headers.get::<ContentDisposition>().unwrap();
-                let file_name = filename_from_disposition(content_disposition);
-
-                let mut input = File::open(value.path.clone()).unwrap();
-                let mut output = OpenOptions::new()
-                    .write(true)
-                    .create(true)
-                    .open(PathBuf::from("uploads").join(file_name.clone().unwrap_or(String::from("upload_data"))))
-                    .unwrap();
-
-                copy(&mut input, &mut output).unwrap();
-                println!("File written to {}", file_name.unwrap());
+            match conf.file_handling {
+                HandlerMethod::Log => log_file(file),
+                HandlerMethod::File => upload_file(file),
             }
         }
         Ok(String::from("Complete"))
@@ -53,6 +42,32 @@ fn collect_fields(fields: Vec<(String, String)>) -> HashMap<String, String> {
         map.insert(key.clone(), value.clone());
     }
     map
+}
+
+type Upload = (String, FilePart);
+
+fn upload_file(file: Upload) {
+    let (name, value) = file;
+    let content_disposition = value.headers.get::<ContentDisposition>().unwrap();
+    let file_name = filename_from_disposition(content_disposition);
+
+    let mut input = File::open(value.path.clone()).unwrap();
+    let mut output = OpenOptions::new()
+        .write(true)
+        .create(true)
+        .open(PathBuf::from("uploads").join(file_name.clone().unwrap_or(String::from("upload_data"))))
+        .unwrap();
+
+    copy(&mut input, &mut output).unwrap();
+    println!("File written to {}", file_name.unwrap());
+}
+
+fn log_file(file: Upload) {
+    let (name, value) = file;
+    println!("[UPLOAD] From field: {}. Size: {}", name, value.size.unwrap_or(0));
+    for header in value.headers.iter() {
+        println!("[UPLOAD] :: {}; {}", header.name(), header.value_string());
+    }
 }
 
 fn filename_from_disposition(dispo: &ContentDisposition) -> Option<String> {
