@@ -1,21 +1,29 @@
 pub const USAGE: &'static str = "
-Static file swerver and api mocker for local development. For full documentation,
-visit https://swerve.louiscap.io.
+Static file swerver and api mocker for local development. 
+For full documentation, visit https://swerve.louiscap.io.
 
 Usage:
     swerve [options]
 
-Options:
-    -h, --help                      Display this text
-    -q, --quiet                     Don't print anything to stdout
-    --no-index                      Don't serve index.html files for directory paths
-    -d=<path>, --dir=<path>         Root directory; defaults to cwd
-    -p=<port>, --port=<port>        Port; defaults to 8200
-    -a=<addr>, --address=<addr>     Address to bind to (e.g. 10.0.0.15); defaults to localhost
-    -c=<path>, --config=<path>      Path to the .swerve config file
-    -t=<num>, --threads=<num>       Number of worker threads to use for serving files; defaults to 32
-	-u, --upload                    Support file uploads to '/upload'
-	-U=<path>, --upload-path=<path> Set the url path that will accept file uploads. Implies -u if not present
+General Options:
+    -h, --help                       Display this text
+    -q, --quiet                      Don't print anything to stdout
+    --license                        Show the GPL v3 license text
+
+Web Server Options:
+    --no-index                       Don't serve index.html files for directory paths
+    -d=<path>, --dir=<path>          Root directory; defaults to cwd
+    -p=<port>, --port=<port>         Port; defaults to 8200
+    -a=<addr>, --address=<addr>      Address to bind to (e.g. 10.0.0.15); defaults to localhost
+    -c=<path>, --config=<path>       Path to the .swerve config file
+    -t=<num>, --threads=<num>        Number of worker threads to use for serving files; defaults to 32
+
+Data Handling Options
+    -u, --upload                     Support file uploads to '/upload'
+    -U=<path>, --upload-path=<path>  Set the url path that will accept file uploads. Implies 'upload' flag if not present
+
+Swerve Copyright (C) 2018  Louis Capitanchik
+Licensed under GPLv3+
 ";
 
 #[derive(Debug, Deserialize, Clone)]
@@ -30,4 +38,5 @@ pub struct Args {
     pub flag_no_index: bool,
 	pub flag_upload: bool,
 	pub flag_upload_path: Option<String>,
+	pub flag_license: bool,
 }
