@@ -8,98 +8,10 @@ extern crate docopt;
 extern crate swerve;
 extern crate rhai;
 
-use rhai::Engine;
-
-use std::{path, process, io};
-use std::fs::{self, File};
+use std::process;
 use docopt::Docopt;
-use rocket::response::NamedFile;
-use rocket::http::ContentType;
-use rocket::{Response, Request};
 use swerve::cli;
-use swerve::routing;
-use std::io::BufReader;
-use std::path::{Path, PathBuf};
-use rocket::response::Responder;
-
-struct TypedFile {
-    file: File,
-    content_type: Option<ContentType>,
-    path: PathBuf,
-}
-
-impl TypedFile {
-    pub fn open<P: AsRef<Path>>(path: P, content_type: Option<rocket::http::ContentType>) -> TypedFile {
-        let file = File::open(path.as_ref()).unwrap();
-        TypedFile { file, content_type, path: (*path.as_ref()).to_path_buf() }
-    }
-}
-
-impl rocket::response::Responder<'static> for TypedFile {
-    fn respond_to(self, _: &Request) -> Result<Response<'static>, rocket::http::Status> {
-        let mut response = Response::new();
-        if let Some(content_type) = self.content_type {
-            response.set_header(content_type);
-        } else {
-            response.set_header(ContentType::from_extension(&self.path.extension().unwrap().to_string_lossy()).unwrap());
-        }
-        response.set_streamed_body(BufReader::new(self.file));
-        Ok(response)
-    }
-}
-
-#[get("/")]
-fn serve_root(args: rocket::State<cli::Args>) -> Option<TypedFile> {
-    serve_files(None, args)
-}
-
-#[get("/<file..>")]
-fn serve_files(file: Option<path::PathBuf>, args: rocket::State<cli::Args>) -> Option<TypedFile> {
-    let stub = match file {
-        Some(path) => path,
-        None => path::PathBuf::from(""),
-    };
-
-    let path = args.get_dir().join(stub);
-
-    let meta = match fs::metadata(&path) {
-        Ok(metadata) => metadata,
-        _ => return None,
-    };
-
-    if meta.is_dir() && !args.flag_no_index {
-        Some(TypedFile::open(path.join("index.html"), None))
-    } else {
-        if &path.extension().unwrap().to_string_lossy() == "wasm" {
-           Some( TypedFile::open(path, Some(ContentType::new("application", "wasm"))))
-        } else {
-            Some(TypedFile::open(path, None))
-        }
-    }
-}
-
-fn config_from_args(args: cli::Args, config: cli::SwerveConfig) -> rocket::Config {
-    let mut builder = rocket::Config::build(rocket::config::Environment::Development);
-    if let Some(threads) = args.flag_threads {
-        builder = builder.workers(threads);
-    } else {
-        builder = builder.workers(config.server.threads);
-    }
-
-    if let Some(port) = args.flag_port {
-        builder = builder.port(port);
-    } else {
-        builder = builder.port(config.server.port);
-    }
-
-    if let Some(address) = args.flag_address {
-        builder = builder.address(address);
-    } else {
-        builder = builder.address(config.server.address);
-    }
-
-    builder.finalize().unwrap()
-}
+use swerve::server;
 
 fn main() {
     let args: cli::Args = Docopt::new(cli::USAGE)
@@ -133,38 +45,6 @@ fn main() {
         std::process::exit(2);
     });
 
-    let server_config = config_from_args(args.clone(), swerve_config.clone());
-    // printq!("{:?}", swerve_config);
-    printq!("");
-
-    let mut server = rocket::custom(server_config, false)
-        .manage(args.clone())
-        .manage(swerve_config);
-
-    if let Some(ref upload_path) = args.flag_upload_path {
-        printq!("[SETUP] Accepting uploads at {}", upload_path);
-        server = server.mount(upload_path, routes![swerve::routing::mock_upload::to_file]);
-    } else if args.flag_upload {
-        printq!("[SETUP] Accepting uploads at /upload");
-        server = server.mount("/upload", routes![swerve::routing::mock_upload::to_file]);
-    }
-    server = server.mount("/", routes![
-		serve_root,
-		serve_files,
-		routing::scripting::route_script
-	]);
-
-    if !args.flag_quiet {
-        server = server.attach(rocket::fairing::AdHoc::on_launch(move |rckt| {
-            let config = rckt.config();
-            println!("[SETUP] Swerve is configured with {} worker threads", config.workers);
-            println!("[SETUP] Swerving files from http://{}:{}\n", config.address, config.port);
-        }))
-        .attach(rocket::fairing::AdHoc::on_response(|req, _res| {
-            println!("[REQUEST] {} {}", req.method(), req.uri());
-        }));
-    }
-    {
-        server.launch();
-    }
+	let server = server::create_server(args.clone(), swerve_config.clone());
+	server.launch();
 }
