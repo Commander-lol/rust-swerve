@@ -49,5 +49,5 @@ Option | Param | Description | Notes
 `-q`, `--quiet` | | Don't print anything to stdout | Useful if you're spawning swerve from another process and need to monitor stdout
 `--no-index` | | Don't attempt to serve an `index.html` file from a directory path | By default, swerve will treat directories as requests for an `index.html` file. e.g. `/foo/bar` is treated as `/foo/bar/index.html`
 `-u`, `--upload` | | Accept form uploads via a `POST` request to the `/uploads` endpoint | The `file_handling` and `field_handling` config value affect how forms are handled. Setting them to `Log` or `File` will log the values or write them to disk respectively
-`-U`, `--upload-path` | path; `string` | Accept formuploads via a `POST` request to the specified endpoint | See the `--upload` option for information on configuration
+`-U`, `--upload-path` | path; `string` | Accept form uploads via a `POST` request to the specified endpoint | See the `--upload` option for information on configuration
 `--license` | | Print out the GPL 3 license text | GPL compliance is cool, kids
