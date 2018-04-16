@@ -149,7 +149,11 @@ fn main() {
         printq!("[SETUP] Accepting uploads at /upload");
         server = server.mount("/upload", routes![swerve::routing::mock_upload::to_file]);
     }
-    server = server.mount("/", routes![serve_root, serve_files]);;
+    server = server.mount("/", routes![
+		serve_root,
+		serve_files,
+		routing::scripting::route_script
+	]);
 
     if !args.flag_quiet {
         server = server.attach(rocket::fairing::AdHoc::on_launch(move |rckt| {

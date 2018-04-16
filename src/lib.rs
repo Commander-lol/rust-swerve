@@ -13,3 +13,4 @@ extern crate rand;
 
 pub mod cli;
 pub mod routing;
+pub mod scripting;
