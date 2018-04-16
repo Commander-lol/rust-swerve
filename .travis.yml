@@ -1,11 +1,35 @@
 os:
   - linux
   - osx
+language: rust
+
 env:
   - ARCH=x86_64
-language: rust
+
+matrix:
+  include:
+    - env: TARGET=x86_64-unknown-linux-gnu
+    - env: TARGET=x86_64-apple-darwin
+      os: osx
+
 
 rust:
   - nightly
 
+before_cache:
+  - chmod -R a+r $HOME/.cargo
+
 cache: cargo
+
+before_deploy:
+  - cp target/release/swerve "target/release/swerve.$TARGET"
+
+deploy:
+  provider: releases
+  skip_cleanup:true
+  api_key:
+    secure: hoonHcAMie7yiZDkQdDzNYGU5zI2U8xCF70lZyvDMwwvicCn9vHCAxVDDGza6amFranfwQ8vKin3I6PYpNazt1VDrv+98dvkawFeJy30b0DNqo2uKaLN2IWA9IYjBTAVd2cSqA8vRhf89gfwA1x0/8pbosZXI7lF76kbU7QxiNfRVnc8uTOL2WBF7MjtqOKrQ+yQ7RQ/Bf+N31h6YR+HLknKZ+DZrZONKHVd62ThGcDajPYYOzODZlgrNct3asrO6QW5cYbIuguljXhPaWHpJ9130GDOOS3E7PQBBkxPJEI8+urZQ7aRQD7iu/DbDX3hkWPEh0BBUtJ8zlzv6T1dhwMkaqDsjGIv3Z/EdVt71DH+wocqF3wsiKfwGnmINu0atRlWCRT5nOhUb2UfWVoLYcHJOlU+nHkU4VRoPOlJaPwd3Ll98TBjObFl2khipKrKVcNc6zaaQQSVLrXZsaSHIDF8nTNgco4JP7V85FnS65hjXIzeiUP3SqAFMwmeGkRitCChIbYPgBfM46f+I3D4kJDy3Q1Yld3tLvDb+G4GuqsUYr9MFmXxInTN+ScruSW/eqeO3Cf2U0bcNBzSqGmCpSYFNwDNax+WhPnlNwNZwM6T0Co5i9BYUTdfnzzrFpuuCU36G20yD+lkAAvovfK5+yHWR1T4Qj72ij9/GacFKhw=
+  file: target/release/swerve.$TARGET
+  on:
+    repo: Commander-lol/rust-swerve
+    tags: true
