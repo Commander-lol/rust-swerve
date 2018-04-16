@@ -13,7 +13,7 @@ serving files, but the roadmap includes API mocking to make front end developmen
 ## Installation
 
 ### Prebuilt
-1. Download the binary for your OS from the [releases]() page
+1. Download the binary for your OS from the [releases](https://github.com/Commander-lol/rust-swerve/releases) page
 2. Put `swerve` somewhere in your `$PATH`, or modify your `$PATH` to inlcude the folder containing `swerve`
 3. Do one of two things:
 	1. Open up a command prompt and `cd` to the folder containing your files and run `swerve`
