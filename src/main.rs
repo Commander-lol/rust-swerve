@@ -19,18 +19,8 @@ fn main() {
         .unwrap_or_else(|e| e.exit());
 
     let is_quiet = args.flag_quiet;
-    macro_rules! printq {
-        ($( $x:expr ),+) => {
-            {
-                if !is_quiet {
-                    println!($($x),*);
-                }
-            }
-        }
-    }
-
     if args.flag_help {
-        printq!("{}", cli::USAGE);
+        if !is_quiet { println!("{}", cli::USAGE); }
         process::exit(0);
     }
 

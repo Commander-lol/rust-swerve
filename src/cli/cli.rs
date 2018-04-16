@@ -1,5 +1,6 @@
 pub use std::path::PathBuf;
 pub use std::env::current_dir;
+pub use std::default::Default;
 
 pub const USAGE: &'static str = "
 Static file swerver and api mocker for local development. 
@@ -54,4 +55,22 @@ impl Args {
             ).to_string_lossy().into_owned())
         )
     }
+}
+
+impl Default for Args {
+	fn default() -> Self {
+		Args {
+			flag_dir: Some(""),
+			flag_port: Some(8000),
+			flag_config: None,
+			flag_threads: Some(32),
+			flag_address: Some("localhost"),
+			flag_help: false,
+			flag_quiet: false,
+			flag_no_index: false,
+			flag_upload: false,
+			flag_upload_path: None,
+			flag_license: false,
+		}
+	}
 }
