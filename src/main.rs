@@ -106,12 +106,24 @@ fn main() {
         .and_then(|d| d.deserialize())
         .unwrap_or_else(|e| e.exit());
 
+    let is_quiet = args.flag_quiet;
+    macro_rules! printq {
+        ($( $x:expr ),+) => {
+            {
+                if !is_quiet {
+                    println!($($x),*);
+                }
+            }
+        }
+    }
+
     if args.flag_help {
-        println!("{}", cli::USAGE);
+        printq!("{}", cli::USAGE);
         process::exit(0);
     }
 
 	if args.flag_license {
+        if is_quiet { std::process::exit(0); }
 		cli::gpl::show_license_and_exit();
 	}
 
@@ -122,24 +134,31 @@ fn main() {
     });
 
     let server_config = config_from_args(args.clone(), swerve_config.clone());
-    println!("{:?}", swerve_config);
+    printq!("{:?}", swerve_config);
+
+    printq!("");
 
     let mut server = rocket::custom(server_config, false)
         .manage(args.clone())
         .manage(swerve_config);
 
-	
-    server = server.mount("/upload", routes![swerve::routing::mock_upload::to_file])
-        .mount("/", routes![serve_root, serve_files]);
+    if let Some(ref upload_path) = args.flag_upload_path {
+        printq!("[SETUP] Accepting uploads at {}", upload_path);
+        server = server.mount(upload_path, routes![swerve::routing::mock_upload::to_file]);
+    } else if args.flag_upload {
+        printq!("[SETUP] Accepting uploads at /upload");
+        server = server.mount("/upload", routes![swerve::routing::mock_upload::to_file]);
+    }
+    server = server.mount("/", routes![serve_root, serve_files]);;
 
     if !args.flag_quiet {
         server = server.attach(rocket::fairing::AdHoc::on_launch(move |rckt| {
             let config = rckt.config();
-            println!("\nSwerve is configured with {} worker threads", config.workers);
-            println!("Swerving files from http://{}:{}\n", config.address, config.port);
+            println!("[SETUP] Swerve is configured with {} worker threads", config.workers);
+            println!("[SETUP] Swerving files from http://{}:{}\n", config.address, config.port);
         }))
         .attach(rocket::fairing::AdHoc::on_response(|req, _res| {
-            println!("{} {}", req.method(), req.uri());
+            println!("[REQUEST] {} {}", req.method(), req.uri());
         }));
     }
     {
