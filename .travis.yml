@@ -19,6 +19,7 @@ before_cache:
 cache: cargo
 
 before_deploy:
+  - cargo build --release
   - cp target/release/swerve "target/release/swerve.$TARGET"
 
 deploy:
