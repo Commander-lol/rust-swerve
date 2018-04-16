@@ -134,8 +134,7 @@ fn main() {
     });
 
     let server_config = config_from_args(args.clone(), swerve_config.clone());
-    printq!("{:?}", swerve_config);
-
+    // printq!("{:?}", swerve_config);
     printq!("");
 
     let mut server = rocket::custom(server_config, false)
