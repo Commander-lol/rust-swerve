@@ -3,9 +3,8 @@ use std::convert::AsRef;
 use std::io::prelude::*;
 use std::io;
 use std::fs::File;
-use std::io::BufReader;
 use std::default::Default;
-use serde::{Deserialize, Deserializer, de::{self, Error}};
+use serde::{Deserialize, Deserializer, de};
 use std::fmt;
 use serde_yaml as yaml;
 
