@@ -1,6 +1,8 @@
 # Swerve
 _Quick and easy multithreaded file server for local development_
 
+[![Build Status](https://travis-ci.org/Commander-lol/rust-swerve.svg?branch=master)](https://travis-ci.org/Commander-lol/rust-swerve)
+
 ## About
 A common misconception about swerve is that the name is a play on the word "serve", as in the purpose of a file server.
 Contrary to this, swerve actually stands for "Simple Werve" - the goal being to make it super simple to werve your 
