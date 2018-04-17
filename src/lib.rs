@@ -9,6 +9,7 @@ extern crate rocket_contrib;
 extern crate formdata;
 extern crate hyper;
 extern crate rand;
+extern crate rlua;
 
 pub mod cli;
 pub mod routing;

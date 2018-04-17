@@ -1,6 +1,7 @@
 use rocket::{self, Rocket, Config};
 use cli::{Args, SwerveConfig};
 use routing;
+use server;
 
 pub fn create_server(args: Args, config: SwerveConfig) -> Rocket {
 	let server_config = server_config_from_input(args.clone(), config.clone());
@@ -35,6 +36,9 @@ pub fn create_server(args: Args, config: SwerveConfig) -> Rocket {
 			println!("[REQUEST] {} {}", req.method(), req.uri());
 		}));
 	}
+
+    let lua_runtime = server::create_runtime(false);
+    server = server.manage(lua_runtime);
 
 	server
 }
