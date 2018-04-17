@@ -22,7 +22,7 @@ Web Server Options:
     -c=<path>, --config=<path>       Path to the .swerve config file
     -t=<num>, --threads=<num>        Number of worker threads to use for serving files; defaults to 32
 
-Data Handling Options
+Data Handling Options:
     -u, --upload                     Support file uploads to '/upload'
     -U=<path>, --upload-path=<path>  Set the url path that will accept file uploads. Implies 'upload' flag if not present
 
@@ -60,11 +60,11 @@ impl Args {
 impl Default for Args {
 	fn default() -> Self {
 		Args {
-			flag_dir: Some(""),
+			flag_dir: Some(String::from("")),
 			flag_port: Some(8000),
 			flag_config: None,
 			flag_threads: Some(32),
-			flag_address: Some("localhost"),
+			flag_address: Some(String::from("localhost")),
 			flag_help: false,
 			flag_quiet: false,
 			flag_no_index: false,
