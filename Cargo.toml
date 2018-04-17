@@ -37,3 +37,6 @@ hyper = "0.10"
 rand = "0.3"
 rhai = "0.7"
 serde_yaml = "0.7.3"
+
+[dev-dependencies]
+interpolate_idents = "0.2.4"
