@@ -6,7 +6,6 @@ extern crate alloc_system;
 extern crate rocket;
 extern crate docopt;
 extern crate swerve;
-extern crate rhai;
 
 use std::process;
 use docopt::Docopt;

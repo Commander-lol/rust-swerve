@@ -4,7 +4,6 @@
 extern crate serde;
 #[macro_use] extern crate serde_derive;
 extern crate serde_yaml;
-extern crate rhai;
 extern crate rocket;
 extern crate rocket_contrib;
 extern crate formdata;
