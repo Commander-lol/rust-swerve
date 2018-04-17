@@ -1,7 +1,7 @@
 # Swerve
 _Quick and easy multithreaded file server for local development_
 
-[![Build Status](https://travis-ci.org/Commander-lol/rust-swerve.svg?branch=master)](https://travis-ci.org/Commander-lol/rust-swerve)
+[![Build Status](https://travis-ci.org/Commander-lol/rust-swerve.svg?branch=master)](https://travis-ci.org/Commander-lol/rust-swerve) [![License](https://img.shields.io/crates/l/swerve.svg)](https://crates.io/crates/swerve) [![Version Number](https://img.shields.io/crates/v/swerve.svg)](https://crates.io/crates/swerve)
 
 ## About
 A common misconception about swerve is that the name is a play on the word "serve", as in the purpose of a file server.
