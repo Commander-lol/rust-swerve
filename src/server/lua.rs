@@ -1,5 +1,5 @@
 use rlua::{Lua};
-use rocket::{self, Outcome, http, Response};
+use rocket::{Outcome, http};
 use rocket::request::{FromRequest, Request};
 use std::convert::{Into, AsRef, AsMut};
 

@@ -2,7 +2,7 @@ use rocket::{self, Outcome, http, Response};
 use rocket::request::{FromRequest, Request};
 use rocket::http::ContentType;
 use hyper::header::Headers;
-use std::path::{Path, PathBuf, Component};
+use std::path::{Path, PathBuf};
 use std::io::BufReader;
 use std::fs::File;
 

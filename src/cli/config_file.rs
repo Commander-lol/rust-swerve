@@ -7,7 +7,6 @@ use std::default::Default;
 use serde::{Deserialize, Deserializer, de};
 use std::fmt;
 use serde_yaml as yaml;
-use std::collections::HashMap;
 use cli;
 
 #[derive(Debug, Copy, Clone)]
