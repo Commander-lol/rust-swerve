@@ -72,6 +72,7 @@ pub mod path {
     use std::path as std_path;
     use std::option::Option::*;
 
+	#[derive(PartialEq, Eq, Hash)]
     pub struct MatchablePath(pub String);
     pub type PathMatch = (String, String);
     pub type MatchList = Vec<PathMatch>;

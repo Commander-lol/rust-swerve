@@ -6,7 +6,10 @@ pub fn create_server(args: Args, config: SwerveConfig) -> Rocket {
 	let server_config = server_config_from_input(args.clone(), config.clone());
 	let mut server = Rocket::custom(server_config, false)
 		.manage(args.clone())
-		.manage(config.clone());
+		.manage(config.clone())
+		.manage(routing::ScriptMap::from_config(&config.clone()))
+
+		.attach(routing::RedirectScripts);
 
 	let quiet = args.flag_quiet;
 

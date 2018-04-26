@@ -2,9 +2,9 @@ use std::collections::HashMap;
 
 #[derive(Clone, Debug, Deserialize)]
 pub struct RouteHandler {
-    route: String,
-    response: Option<ResponseHandler>,
-    script: Option<String>,
+    pub route: String,
+    pub response: Option<ResponseHandler>,
+    pub script: Option<String>,
 }
 
 #[derive(Clone, Debug, Deserialize)]
