@@ -4,7 +4,7 @@ server:
   port: 9000
 routes:
   - route: /users/@user_id
-    script: scripts/get_user_by_id.dyon
+    script: get_user.lua
   - route: /users
     response:
       failure_rate: 5

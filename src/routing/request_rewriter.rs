@@ -1,5 +1,5 @@
 use rocket::fairing::{Fairing, Info, Kind};
-use rocket::{Request, Data, Rocket, State};
+use rocket::{Request, Data, State};
 use cli::SwerveConfig;
 use std::collections::HashMap;
 use routing::request::path::MatchablePath;
