@@ -1,6 +1,6 @@
 [package]
 name = "swerve"
-version = "0.2.0"
+version = "0.3.0"
 description = "Quick and easy multithreaded file server for local front end development"
 
 authors = ["Louis Capitanchik <contact@louiscap.co>"]
