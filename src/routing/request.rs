@@ -57,3 +57,75 @@ impl rocket::response::Responder<'static> for TypedFile {
         Ok(response)
     }
 }
+
+pub struct RequestPath(pub String);
+impl <'a, 'req>FromRequest<'a, 'req> for RequestPath {
+    type Error = ();
+
+    fn from_request(request: &'a Request<'req>) -> Outcome<Self, (http::Status, ()), ()> {
+        let uri = request.uri();
+        Outcome::Success(RequestPath(String::from(uri.path())))
+    }
+}
+
+pub mod path {
+    use std::path as std_path;
+    use std::option::Option::*;
+
+	#[derive(PartialEq, Eq, Hash)]
+    pub struct MatchablePath(pub String);
+    pub type PathMatch = (String, String);
+    pub type MatchList = Vec<PathMatch>;
+    pub type MatchResult = Option<MatchList>;
+
+    impl MatchablePath {
+        pub fn from<T>(src: T) -> Self where T: ToString {
+            MatchablePath(src.to_string())
+        }
+
+        fn path_to_vec<T: ToString>(string: T) -> Vec<String> {
+            std_path::PathBuf::from(string.to_string())
+                .components()
+                .filter_map(|c| match c {
+                    std_path::Component::Normal(cmp) => cmp.to_str()
+                        .and_then(|s| Some(String::from(s))),
+                    _ => None,
+                })
+                .collect()
+        }
+
+        pub fn matches<T>(&self, other: T) -> MatchResult where T: ToString {
+            let this_path = MatchablePath::path_to_vec(&self.0);
+            let other_path = MatchablePath::path_to_vec(other);
+
+            if this_path.len() == other_path.len() {
+                let parts_match = this_path.iter()
+                    .zip(other_path.iter())
+                    .fold(true, |acc, (this, other)| {
+                        acc && (this.starts_with("@") || this == other)
+                    });
+
+                if parts_match {
+                    Some(this_path.iter()
+                        .zip(other_path.iter())
+                        .filter_map(|(this, other)| {
+                            if this.starts_with("@") {
+                                Some((
+                                    this.chars().skip(1).collect::<String>(),
+                                    other.clone()
+                                ))
+                            } else {
+                                None
+                            }
+                        })
+                        .collect()
+                    )
+                } else {
+                    None
+                }
+            } else {
+                None
+            }
+        }
+    }
+}

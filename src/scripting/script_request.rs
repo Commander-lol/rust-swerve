@@ -1,7 +1,3 @@
-use server::LuaRuntime;
-use rlua::{Lua};
-use scripting::{run_script, ScriptResponse};
-
 use rocket::request::{FromForm, FormItems};
 use std::collections::HashMap;
 
@@ -30,11 +26,4 @@ impl <'form> FromForm<'form> for ScriptParams {
 			None => Err(()),
 		}
 	}
-}
-
-
-#[get("/__run_script__?<params>")]
-pub fn route_script(params: ScriptParams, runtime: LuaRuntime) -> ScriptResponse {
-	let lua: Lua = runtime.into();
-	run_script(format!("example/.swerve/{}", params.script_name), &lua, params.script_params).unwrap_or_else(|| ScriptResponse::default())
 }

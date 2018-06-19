@@ -1,15 +1,12 @@
 use rocket::{Data, State};
 use formdata::{read_formdata, FilePart};
 use routing::request::ConvertedHeaders;
-use hyper::header::{Headers, ContentDisposition, DispositionParam};
-use rocket::request::FromRequest;
-use std::io::{Read, Write, copy};
-use std::io::{BufReader, BufWriter};
+use hyper::header::{ContentDisposition, DispositionParam};
+use std::io::{copy};
 use std::fs::{OpenOptions, File, create_dir};
 use cli::{HandlerMethod, SwerveConfig};
-use std::path::{Path, PathBuf};
+use std::path::{PathBuf};
 use std::collections::HashMap;
-use rand::{Rng, StdRng};
 
 #[post(path = "/", data = "<upload>")]
 pub fn to_file(headers: ConvertedHeaders, conf: State<SwerveConfig>, upload: Data) -> Result<String, String> {
@@ -21,7 +18,12 @@ pub fn to_file(headers: ConvertedHeaders, conf: State<SwerveConfig>, upload: Dat
             HandlerMethod::File => println!("{:?}", fields),
         }
 
-        create_dir("uploads");
+        match create_dir("uploads") {
+			Ok(_) => {},
+			Err(err) => {
+				return Err(format!("Could not create uploads directory:\n{}", err));
+			}
+		}
 
         for file in data.files {
             match conf.file_handling {
@@ -49,17 +51,17 @@ type Upload = (String, FilePart);
 fn upload_file(file: Upload) {
     let (name, value) = file;
     let content_disposition = value.headers.get::<ContentDisposition>().unwrap();
-    let file_name = filename_from_disposition(content_disposition);
+    let file_name = filename_from_disposition(content_disposition).unwrap_or(name);
 
     let mut input = File::open(value.path.clone()).unwrap();
     let mut output = OpenOptions::new()
         .write(true)
         .create(true)
-        .open(PathBuf::from("uploads").join(file_name.clone().unwrap_or(String::from("upload_data"))))
+        .open(PathBuf::from("uploads").join(file_name.clone()))
         .unwrap();
 
     copy(&mut input, &mut output).unwrap();
-    println!("File written to {}", file_name.unwrap());
+    println!("File written to {}", file_name);
 }
 
 fn log_file(file: Upload) {

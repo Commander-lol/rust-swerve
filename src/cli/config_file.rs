@@ -7,6 +7,7 @@ use std::default::Default;
 use serde::{Deserialize, Deserializer, de};
 use std::fmt;
 use serde_yaml as yaml;
+use cli;
 
 #[derive(Debug, Copy, Clone)]
 pub enum HandlerMethod {
@@ -52,6 +53,8 @@ pub struct SwerveConfig {
     pub file_handling: HandlerMethod,
     #[serde(default)]
     pub server: ServerOptions,
+    #[serde(default="get_empty_routes")]
+    pub routes: Vec<cli::RouteHandler>,
 }
 
 #[derive(Deserialize, Debug, Clone)]
@@ -74,12 +77,15 @@ fn get_default_address() -> String { String::from("localhost") }
 fn get_default_quiet_attr() -> bool { false }
 fn get_default_index_attr() -> bool { false }
 
+fn get_empty_routes() -> Vec<cli::RouteHandler> { vec![] }
+
 impl Default for SwerveConfig {
     fn default() -> Self {
         SwerveConfig {
             field_handling: HandlerMethod::Log,
             file_handling: HandlerMethod::Log,
             server: ServerOptions::default(),
+            routes: get_empty_routes(),
         }
     }
 }

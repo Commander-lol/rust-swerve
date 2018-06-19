@@ -2,16 +2,19 @@ field_handling: Log
 file_handling: File
 server:
   port: 9000
-requests:
-  - /users/@user_id : scripts/get_user_by_id.dyon
-  - /users :
+routes:
+  - route: /users/@user_id
+    script: get_user.lua
+  - route: /accounts/@account_id/widgets/@widget_id
+    script: accounts/handle_widgets.lua
+  - route: /users
+    response:
       failure_rate: 5
-      response_headers:
+      headers:
         x-rate-limit: 100
         x-rate-remaining: 96
         x-rate-reset: 10/12/1990
-      response_type: application/json
-      response_body:
+      body:
         count: 2
         data:
           - id: 1
