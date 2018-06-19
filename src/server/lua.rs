@@ -4,6 +4,7 @@ use rocket::request::{FromRequest, Request};
 use std::convert::{Into, AsRef, AsMut};
 use scripting;
 use serde::Serialize;
+use std::collections::HashMap;
 
 const LIB_JSON_ENCODE: &'static str = include_str!("../scripts/json.lua");
 
@@ -28,7 +29,7 @@ impl <'a, 'req>FromRequest<'a, 'req> for LuaRuntime {
     type Error = ();
 
     fn from_request(_request: &'a Request<'req>) -> Outcome<Self, (http::Status, ()), ()> {
-        match create_runtime(false) {
+		match create_runtime(false) {
 			Ok(runtime) => Outcome::Success(runtime),
 			_ => Outcome::Failure((http::Status::raw(500), ())),
 		}
@@ -49,9 +50,13 @@ pub fn create_runtime(with_debug: bool) -> LuaResult<LuaRuntime> {
 	{
 		let globals = &runtime.globals();
 		let response_constructor = runtime.create_function(|_, (status, content_type, body): (u16, String, String)| {
+
+			let mut headers = HashMap::new();
+			headers.insert(String::from("Content-Type"), content_type);
+
 			Ok(scripting::ScriptResponse {
 				status,
-				content_type,
+				headers,
 				body: Some(body),
 			})
 		})?;
@@ -59,7 +64,7 @@ pub fn create_runtime(with_debug: bool) -> LuaResult<LuaRuntime> {
 		let empty_response_constructor = runtime.create_function(|_, (): ()| {
 			Ok(scripting::ScriptResponse {
 				status: 204,
-				content_type: "text/plain".into(),
+				headers: HashMap::new(),
 				body: None,
 			})
 		})?;

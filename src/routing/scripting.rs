@@ -36,6 +36,6 @@ impl <'form> FromForm<'form> for ScriptParams {
 
 #[get("/__run_script__?<params>")]
 pub fn route_script(params: ScriptParams, runtime: LuaRuntime) -> ScriptResponse {
-	let lua: Lua = runtime.into(); //todo: Use This
-	run_script(format!("example/.swerve/{}", params.script_name), &lua).unwrap_or_else(|| ScriptResponse::default())
+	let lua: Lua = runtime.into();
+	run_script(format!("example/.swerve/{}", params.script_name), &lua, params.script_params).unwrap_or_else(|| ScriptResponse::default())
 }
