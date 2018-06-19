@@ -10,10 +10,12 @@ r:set_body("This is my only response");
 
 --return r
 
-r = response(200, "application/json", json_encode({ foo = 123 }));
+print(params.user_id)
 
-r:unset_body();
-r:set_status(204);
+r = response(200, "application/json", json_encode({ user_id = params.user_id, path = params.script_path }));
+--
+--r:unset_body();
+--r:set_status(204);
 
 return r
 
