@@ -35,7 +35,86 @@
                     <li><a href="../versions.html">Versions</a></li>
                 </ul>
             </nav>
-            <div class="column column-70 column-offset-10">hello</div>
+            <div class="column column-70 column-offset-10">
+                <p>
+                    Swerve can be installed in one of three ways; using a prebuilt binary, using Cargo or building from
+                    source. The last two options are very similar, with varying levels of hands-off-ness. The recommended
+                    install method is via the prebuilt binary, but these are only provided for macOS and Linux systems.
+                </p>
+
+
+                <h2>Pre-built Swerve</h2>
+                <p>
+                    Swerve is built for each release automatically for x86 macOS and x86 Linux systems. Binaries are also
+                    only built for 64-bit systems; you will need to build from source if you want to run Swerve on a 32-bit
+                    system.
+                </p>
+                <ol>
+                    <li>Go to the <a href="../downloads.html">downloads</a> page and download the latest tarball of Swerve</li>
+                    <li>Extract the archive to some know path on your system (we'll refer to this as <kbd>$OUTPATH</kbd>)</li>
+                    <ul>
+                        <li>
+                            If you're doing this from the command line, you can use <kbd><code>tar -xzf $FILE.tar.gz</code></kbd> to extract
+                            the archive. Alternatively, use a GUI program (your OS will most likely have one built in)
+                        </li>
+                    </ul>
+                    <li>Move the Swerve binary to some location accessible from your <kbd>$PATH</kbd>:</li>
+                    <ul>
+                        <li>Add the extracted path to your <kbd>$PATH</kbd>: <kbd><code>PATH="$PATH:$OUTPATH"</code></kbd></li>
+                        <li>Move the binary to some location already in your <kbd>$PATH</kbd>: <kbd><code>mv $OUTPATH/swerve /somewhere/in/path/swerve</code></kbd></li>
+                    </ul>
+                </ol>
+                <p>
+                    You should now be able to invoke Swerve by typing <kbd><code>swerve</code></kbd> in your terminal. This will open swerve with the default options in the
+                    current directory (also taking into account any Swerve configuration files it finds). To start customising swerve, read about <a href="usage.html">usage</a>.
+                </p>
+
+
+
+
+                <h2>Install Via Cargo</h2>
+                <p>
+                    All new Swerve versions are published to <a href="https://crates.io/crates/swerve">crates.io</a>, allowing you to use Cargo to easily build and install it from source.
+                </p>
+                <ol>
+                    <li>Make sure that you have Cargo installed, preferably via <a href="https://rustup.rs/">rustup</a>. </li>
+                    <li>
+                        Version 0.3.0 of Swerve was built against <kbd>nightly-2018-06-18</kbd>. It is highly recommended to use this
+                        exact versions to install Swerve
+                    </li>
+                    <li>Run <kbd><code>cargo install swerve</code></kbd></li>
+                </ol>
+                <p>
+                    You should now be able to invoke Swerve by typing <kbd><code>swerve</code></kbd> in your terminal. This will open swerve with the default options in the
+                    current directory (also taking into account any Swerve configuration files it finds). To start customising swerve, read about <a href="usage.html">usage</a>.
+                </p>
+
+
+
+
+                <h2>Build From Source</h2>
+                <p>
+                    If you want to run Swerve on a system that doesn't have a version automatically built for it, or you need more customisation than installing via Cargo allows,
+                    you can always build Swerve from source. There are only a few additional steps required compared to installing from Cargo.
+                </p>
+                <ol>
+                    <li>Make sure that you have Cargo installed, preferably via <a href="https://rustup.rs/">rustup</a>. </li>
+                    <li>
+                        Version 0.3.0 of Swerve was built against <kbd>nightly-2018-06-18</kbd>. It is highly recommended to use this
+                        exact versions to install Swerve
+                    </li>
+                    <li>Clone the Swerve git repository to somewhere accesible on your system; <kbd><code>git clone https://github.com/Commander-lol/rust-swerve.git swerve</code></kbd></li>
+                    <li>Enter the Swerve directory; <kbd><code>cd swerve</code></kbd></li>
+                    <li>Use cargo to build the production version; <kbd><code>cargo build --release</code></kbd>. You can add any custom arguments here.</li>
+                    <li>Move the resultant binary to somewhere accessible on your <kbd>$PATH</kbd>; <kbd><code>cp target/release/swerve /somewhere/in/path/swerve</code></kbd></li>
+                </ol>
+                <p>
+                    You should now be able to invoke Swerve by typing <kbd><code>swerve</code></kbd> in your terminal. This will open swerve with the default options in the
+                    current directory (also taking into account any Swerve configuration files it finds). To start customising swerve, read about <a href="usage.html">usage</a>.
+                </p>
+
+
+            </div>
         </div>
     </div>
 

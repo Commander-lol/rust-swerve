@@ -17,6 +17,9 @@
 .title {
     text-align: center;
 }
+.row {
+    align-items: flex-start;
+}
 a:not(.button) {
     text-decoration: underline !important;
 }
@@ -31,6 +34,8 @@ a:not(.button):visited {
 nav.sidebar {
     border: 1px #606c76 solid;
     padding: 0 !important;
+    position: sticky;
+    top: 10px;
 }
 
 .sidebar .section {
