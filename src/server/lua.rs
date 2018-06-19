@@ -1,10 +1,9 @@
-use rlua::{Lua, Result as LuaResult, FromLua};
+use rlua::{Lua, Result as LuaResult};
 use rocket::{Outcome, http};
 use rocket::request::{FromRequest, Request};
 use std::convert::{Into, AsRef, AsMut};
-use scripting;
-use serde::Serialize;
 use std::collections::HashMap;
+use scripting;
 
 const LIB_JSON_ENCODE: &'static str = include_str!("../scripts/json.lua");
 

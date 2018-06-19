@@ -1,8 +1,8 @@
-use rlua::{UserData, UserDataMethods, Table};
+use rlua::{UserData, UserDataMethods};
 
 use rocket::Request;
 use rocket::http::Status;
-use rocket::response::{Response, Responder, ResponseBuilder};
+use rocket::response::{Response, Responder};
 
 use std::io::Cursor;
 use std::default::Default;

@@ -1,4 +1,3 @@
-use routing::request;
 use server::LuaRuntime;
 use rlua::{Lua};
 use scripting::{run_script, ScriptResponse};

@@ -2,11 +2,11 @@ use std::convert::AsRef;
 use std::path::Path;
 use std::fs::File;
 use std::io::Read;
-use rlua::{Lua, UserData};
+use rlua::Lua;
 use scripting::ScriptResponse;
 use std::collections::HashMap;
 
-pub fn run_script<P: AsRef<Path>>(path: P, mut lua: &Lua, params: HashMap<String, String>) -> Option<ScriptResponse> {
+pub fn run_script<P: AsRef<Path>>(path: P, lua: &Lua, params: HashMap<String, String>) -> Option<ScriptResponse> {
     let mut file = File::open(&path).unwrap();
     let mut buf = String::new();
 
