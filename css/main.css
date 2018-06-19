@@ -1,0 +1,50 @@
+.pad-10 {
+    padding: 20px;
+}
+.svg-image {
+    max-width: 256px;
+    width: 50%;
+}
+.column.middle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#actions {
+    display: flex;
+    justify-content: space-evenly;
+}
+.title {
+    text-align: center;
+}
+a:not(.button) {
+    text-decoration: underline !important;
+}
+
+a:not(.button) {
+    color: blue !important;
+}
+a:not(.button):visited {
+    color: purple !important;
+}
+
+nav.sidebar {
+    border: 1px #606c76 solid;
+    padding: 0 !important;
+}
+
+.sidebar .section {
+    padding: 10px;
+    margin: 0;
+}
+
+.sidebar .section-header {
+    background-color: #606c76;
+    color: #d1d1d1;
+    font-weight: bold;
+    display: block;
+}
+
+.sidebar .section li {
+    list-style: none;
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Swerve File Server</title>
+    <meta name="description" content="Swerve is a small-footprint, highly concurrent file server with super powers that makes local site development an absolute breeze.">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" integrity="sha256-oSrCnRYXvHG31SBifqP2PM1uje7SJUyX0nTwO2RJV54=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="css/milligram.min.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row pad-10">
+            <div class="column column-80 column-offset-10">
+                <h1 class="title">Swerve</h1>
+                <p>
+                    Swerve is a small-footprint, highly concurrent file server with super powers that makes local site development an absolute breeze.
+                    Serve static files (works great with <a href="https://webpack.js.org/">Webpack's</a> "watch" option), upload files and even mock responses with custom
+                    lua scripting.
+                </p>
+            </div>
+        </div>
+        <div class="row pad-10">
+            <div class="column column-80 column-offset-10" id="actions">
+                <a class="button" href="docs/installation.html">Read The Docs</a>
+                <a class="button button-outline" href="https://github.com/Commander-lol/rust-swerve/releases/tag/0.3.0">Downloads</a>
+            </div>
+        </div>
+        <div class="row pad-10">
+            <div class="column middle">
+                <img src="images/multi-files.svg" class="svg-image">
+                <h3>Highly Concurrent</h3>
+                <p>
+                    Swerve uses a configurable thread pool to handle requests. Don't let file loading be a hindrance to a tight development loop,
+                    and work on resource-heavy projects like Phaser games or chunked Webpack apps without a care in the world.
+                </p>
+            </div>
+            <div class="column middle">
+                <img src="images/config-code.svg" class="svg-image">
+                <h3>Config As Code</h3>
+                <p>
+                    Every configuration option for swerve is available both as a command line argument and as an option in a configuration file.
+                    Check your configuration into version control to make it available to the entire team, and override specifics via the CLI.
+                </p>
+            </div>
+            <div class="column middle">
+                <img src="images/lua.svg" class="svg-image">
+                <h3>Lua On Board</h3>
+                <p>
+                    Map URL paths to <a href="https://www.lua.org/home.html">Lua</a> scripts to handle more complex requests. Swerve provides a
+                    suite of utilities to Lua scripts for building HTTP responses, making it an incredibly powerful system for mocking server endpoints.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
