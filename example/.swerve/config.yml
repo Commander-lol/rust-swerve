@@ -5,6 +5,8 @@ server:
 routes:
   - route: /users/@user_id
     script: get_user.lua
+  - route: /accounts/@account_id/widgets/@widget_id
+    script: accounts/handle_widgets.lua
   - route: /users
     response:
       failure_rate: 5
