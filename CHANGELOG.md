@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 - [DEV] Initial test scaffolding
+- Lua scripting support as a route handler in the `config.yml` file
 
 ## [0.2.0]
 
