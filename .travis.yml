@@ -20,7 +20,7 @@ cache: cargo
 
 before_deploy:
   - cargo build --release
-  - cd target/release/swerve
+  - cd target/release
   - tar -cvzf swerve.$TARGET.tar.gz swerve
 
 deploy:
