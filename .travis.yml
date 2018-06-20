@@ -41,6 +41,7 @@ deploy:
     bucket: swerve-artefacts
     local-dir: dist
     skip_cleanup: true
+    acl: public-read
     on:
       repo: Commander-lol/rust-swerve
       branch: master
