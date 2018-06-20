@@ -18,6 +18,9 @@ cache: cargo
 
 before_deploy:
 - cargo build --release
+- ls
+- ls target
+- ls target/release
 - cd target/release
 - tar -cvzf swerve.$TARGET.tar.gz swerve
 
@@ -42,3 +45,6 @@ deploy:
     on:
       repo: Commander-lol/rust-swerve
       tags: true
+      branches:
+        only:
+          - master
