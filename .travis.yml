@@ -18,11 +18,10 @@ cache: cargo
 
 before_deploy:
 - cargo build --release
-- ls
-- ls target
-- ls target/release
+- mkdir dist
 - cd target/release
 - tar -cvzf swerve-$TRAVIS_BRANCH.$TARGET.tar.gz swerve
+- cp swerve-$TRAVIS_BRANCH.$TARGET.tar.gz ../../dist
 
 deploy:
   - provider: releases
@@ -33,28 +32,12 @@ deploy:
     on:
       repo: Commander-lol/rust-swerve
       tags: true
-  - provider: s3
+  - provider: gcs
+    access_key_id: GOOGNGZV5EXRV6E2YPFNN62I
     secret_access_key:
-      secure: McmrccPXOMutbRVqToC2fjRMNk2cACnuOae80uvOoUN/saj2BE88kSC4+MQbKk0+JlqyGcCc4hNbVyl3vPyAHwSnYNKCJhVL2fWiOKpoSJhzUaUAHTi1yC+19nY1Uzc3upb8ZD0uLc9ywYeOj/9rKx16ZpEk8toQF85KfuLLQWY46KTT3ILnG5+afHv9KOWThwYv4l7BoIsFIWzaFmNMEFF4LzLJFuoWrCkxr6FCeCD430nLVG5f8GihBP3ypy8VrFMz0vZz7sH4WX9C2RI/HFkgiTsl+DcIRdNDyx+KeyQCEIs7u+Tunm1oUmxGRcmoPBtSwG249ivqWEVWps6sYu0qahHmkmFi23t1+IhOwBLWhqBYQDr9EvtgscLZFmSaMCdLb0c5BUSsF6Pnblrsy25HbDr2BUZn7jq3dirvmek/PpLXaoY9HZ+8ozbepgvveI4qJGh5tXEBAnDKFY4Nbojpvmgw8swdw4XQTR4MFMCNMKJCmQ4xTk/Cj6VRnixMvwBqzKHFhbB65yvlDywzxCVKUsJL7qx28TWtHrDjI1HLMg/F4mFcB3lG6LHNBxaQSKkK5fR6PanseAr8/6WN/Vs1kfm7VW8xlbsAuLK13jz49L1IwI/RcJfehcUnBcP5H16Z44l3IdqtthUv00kd0F3F12Psov+6XYLieqFOmps=
-    access_key_id:
-      secure: B8PtE+QloD9AMF1xE2A81JSxMx6MkuIB4zSZ+uBUX1z0XAM3vpnPay/nONcm+K5RsdGy9e4FcmtYGgylRQYvWdbPn1Wfm3w3UGf608ZEYmIy5RkbQX0NgdTVT0rtM177CRjiVq3wjB9AB3n4h7RnFk9BZrNKAu/OQCA8NSnCcsZouXqFXqLVP7yfRNa8cKjiykv8BggFNUzltXxMaQ48l5kbwMVaErRdLrOFnCzQBxSyE9zdvnuQkErKxfmMZpVCkolHZXG2V62R84i5115obmR1ukPyfX8TQw6+uddtEWOA2oOM9o2c+XzDEv/5TXncqINLPGYBYaecvESn3vBvI84qF3fYTkJHlbDEjeu3Nk3BEEWoJ2ar7gbqeNHYpzvZsjGU/KQq/99op6wWh5vTkUX5WtQ+gqWIGoFJnaxS558XOz6wowH6vSRGXP4wsYdC2ycL1De73r+80vV9VuYKCxnv75HCYIDp/xal2USzPZH7fEL3MSq192dxko7yq8Yzg/EIqBDFQJTSIG+BNBewV+cYMzHnkzjHqJjBP7y8iYnNYl/0IpTKiDEg9OyJ+Kzvr1xjy5i8TiWGw+8nE9et6wBIeisYlws2NmsOlIKjqtY4nW5GYRqvgZvqVWkeN2Pp00xespJgwi9VCl0jpbMv1CXneIpoe0yhzM1+mvsZ59g=
-    skip_cleanup: true
-    bucket: swerve-server
-    acl: public_read
-    file: target/release/swerve-$TRAVIS_BRANCH.$TARGET.tar.gz
-    on:
-      repo: Commander-lol/rust-swerve
-      tags: true
-  - provider: s3
-    secret_access_key:
-      secure: McmrccPXOMutbRVqToC2fjRMNk2cACnuOae80uvOoUN/saj2BE88kSC4+MQbKk0+JlqyGcCc4hNbVyl3vPyAHwSnYNKCJhVL2fWiOKpoSJhzUaUAHTi1yC+19nY1Uzc3upb8ZD0uLc9ywYeOj/9rKx16ZpEk8toQF85KfuLLQWY46KTT3ILnG5+afHv9KOWThwYv4l7BoIsFIWzaFmNMEFF4LzLJFuoWrCkxr6FCeCD430nLVG5f8GihBP3ypy8VrFMz0vZz7sH4WX9C2RI/HFkgiTsl+DcIRdNDyx+KeyQCEIs7u+Tunm1oUmxGRcmoPBtSwG249ivqWEVWps6sYu0qahHmkmFi23t1+IhOwBLWhqBYQDr9EvtgscLZFmSaMCdLb0c5BUSsF6Pnblrsy25HbDr2BUZn7jq3dirvmek/PpLXaoY9HZ+8ozbepgvveI4qJGh5tXEBAnDKFY4Nbojpvmgw8swdw4XQTR4MFMCNMKJCmQ4xTk/Cj6VRnixMvwBqzKHFhbB65yvlDywzxCVKUsJL7qx28TWtHrDjI1HLMg/F4mFcB3lG6LHNBxaQSKkK5fR6PanseAr8/6WN/Vs1kfm7VW8xlbsAuLK13jz49L1IwI/RcJfehcUnBcP5H16Z44l3IdqtthUv00kd0F3F12Psov+6XYLieqFOmps=
-    access_key_id:
-      secure: B8PtE+QloD9AMF1xE2A81JSxMx6MkuIB4zSZ+uBUX1z0XAM3vpnPay/nONcm+K5RsdGy9e4FcmtYGgylRQYvWdbPn1Wfm3w3UGf608ZEYmIy5RkbQX0NgdTVT0rtM177CRjiVq3wjB9AB3n4h7RnFk9BZrNKAu/OQCA8NSnCcsZouXqFXqLVP7yfRNa8cKjiykv8BggFNUzltXxMaQ48l5kbwMVaErRdLrOFnCzQBxSyE9zdvnuQkErKxfmMZpVCkolHZXG2V62R84i5115obmR1ukPyfX8TQw6+uddtEWOA2oOM9o2c+XzDEv/5TXncqINLPGYBYaecvESn3vBvI84qF3fYTkJHlbDEjeu3Nk3BEEWoJ2ar7gbqeNHYpzvZsjGU/KQq/99op6wWh5vTkUX5WtQ+gqWIGoFJnaxS558XOz6wowH6vSRGXP4wsYdC2ycL1De73r+80vV9VuYKCxnv75HCYIDp/xal2USzPZH7fEL3MSq192dxko7yq8Yzg/EIqBDFQJTSIG+BNBewV+cYMzHnkzjHqJjBP7y8iYnNYl/0IpTKiDEg9OyJ+Kzvr1xjy5i8TiWGw+8nE9et6wBIeisYlws2NmsOlIKjqtY4nW5GYRqvgZvqVWkeN2Pp00xespJgwi9VCl0jpbMv1CXneIpoe0yhzM1+mvsZ59g=
-    skip_cleanup: true
-    bucket: swerve-server
-    acl: public_read
-    region: eu-west-2
-    file: target/release/swerve-$TRAVIS_BRANCH.$TARGET.tar.gz
+      secure: lKeiFyxS5WOJM5a31haqaUVh+nYN1N1DvlGsVDBkXyEpBut7a/qV7HM3HM2UQSKhLRgusTpA+/eCg6sT5BA5J0NtHYIACZLNa1KX3SZqRmCDs8VbMYo4R7Q50sORst8Qr+9D+9FtuM6Mk8pGoi3MdIfUnuY4zA0Vxl+F0IvAaD6gACwRfexjQYllTXtCobnH5VNQ+1yZoU9fXmrrcyU1D9NN9Vlip08dYqq//FNEVyjv3vOkcarDOKdk/js3M6Q/YAbU3eY16RTEyto4TzErcp7NQiwapVwsJtAW3wjyTeTbYPM3YeE3alkATuDe9rF/cp+uJkkMwplc86RVgYPpqpA8jMe0mY2OjiuJKP01nPO+jTYqsup4J+GNJnaZHbswxALHtpEsvBPFClo1v8yfukap9nz3PePKna9JHMCRdZQ8OukukGYwdro84A5H/w9oPeKQIgAWO0x8HlknBkLL/DOjx1eIHvMKb5fDj6qUOYts50a5jVQ38iqKNFvf8EbildzSKetDvt9MZ14PFdTOZmA2lupdn2DDl5Ggf3sAQAozDNhPR70QMCZ7bcWTfiFbj62IcHERVKkiUHzKc3eaPLD4DKn3xDrVAamrle7pI/4vS7dwdOEC2D5mBo3SDB99jceFCXokYggh3OcxLXdrHYLkEcdAg1qwBe8+6DBbRn0=
+    bucket: swerve-artefacts
+    local-dir: dist
     on:
       repo: Commander-lol/rust-swerve
       branch: master
