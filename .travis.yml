@@ -38,6 +38,7 @@ deploy:
       secure: lKeiFyxS5WOJM5a31haqaUVh+nYN1N1DvlGsVDBkXyEpBut7a/qV7HM3HM2UQSKhLRgusTpA+/eCg6sT5BA5J0NtHYIACZLNa1KX3SZqRmCDs8VbMYo4R7Q50sORst8Qr+9D+9FtuM6Mk8pGoi3MdIfUnuY4zA0Vxl+F0IvAaD6gACwRfexjQYllTXtCobnH5VNQ+1yZoU9fXmrrcyU1D9NN9Vlip08dYqq//FNEVyjv3vOkcarDOKdk/js3M6Q/YAbU3eY16RTEyto4TzErcp7NQiwapVwsJtAW3wjyTeTbYPM3YeE3alkATuDe9rF/cp+uJkkMwplc86RVgYPpqpA8jMe0mY2OjiuJKP01nPO+jTYqsup4J+GNJnaZHbswxALHtpEsvBPFClo1v8yfukap9nz3PePKna9JHMCRdZQ8OukukGYwdro84A5H/w9oPeKQIgAWO0x8HlknBkLL/DOjx1eIHvMKb5fDj6qUOYts50a5jVQ38iqKNFvf8EbildzSKetDvt9MZ14PFdTOZmA2lupdn2DDl5Ggf3sAQAozDNhPR70QMCZ7bcWTfiFbj62IcHERVKkiUHzKc3eaPLD4DKn3xDrVAamrle7pI/4vS7dwdOEC2D5mBo3SDB99jceFCXokYggh3OcxLXdrHYLkEcdAg1qwBe8+6DBbRn0=
     bucket: swerve-artefacts
     local-dir: dist
+    skip_cleanup: true
     on:
       repo: Commander-lol/rust-swerve
       branch: master
