@@ -53,6 +53,7 @@ deploy:
     skip_cleanup: true
     bucket: swerve-server
     acl: public_read
+    region: eu-west-2
     file: target/release/swerve-$TRAVIS_BRANCH.$TARGET.tar.gz
     on:
       repo: Commander-lol/rust-swerve
