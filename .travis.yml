@@ -21,7 +21,8 @@ before_deploy:
 - mkdir dist
 - cd target/release
 - tar -cvzf swerve-$TRAVIS_BRANCH.$TARGET.tar.gz swerve
-- cp swerve-$TRAVIS_BRANCH.$TARGET.tar.gz ../../dist
+- cd ../..
+- cp target/release/swerve-$TRAVIS_BRANCH.$TARGET.tar.gz dist
 
 deploy:
   - provider: releases
