@@ -10,7 +10,7 @@ jobs:
       - image: abronan/rust-circleci:latest
     steps:
       - checkout
-      - run: rustup nightly cargo build
+      - run: rustup run nightly cargo build
       - save_cache:
           key: cargo-cache
           paths:
