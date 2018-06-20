@@ -8,11 +8,10 @@ jobs:
       # and replace here. I put my own image here for
       # the example.
       - image: abronan/rust-circleci:latest
-
-  steps:
-    - checkout
-    - run: rustup nightly cargo build
-    - save_cache:
-        key: cargo-cache
-        paths:
-          - "~/.cargo"
+    steps:
+      - checkout
+      - run: rustup nightly cargo build
+      - save_cache:
+          key: cargo-cache
+          paths:
+            - "~/.cargo"
