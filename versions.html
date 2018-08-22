@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Swerve File Server</title>
+    <title>Versions - Swerve File Server</title>
     <meta name="description" content="Swerve is a small-footprint, highly concurrent file server with super powers that makes local site development an absolute breeze.">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" integrity="sha256-oSrCnRYXvHG31SBifqP2PM1uje7SJUyX0nTwO2RJV54=" crossorigin="anonymous" />
@@ -10,49 +10,127 @@
     <link rel="stylesheet" href="css/main.css?v=1">
 </head>
 <body>
-    <div class="container">
-        <div class="row pad-10">
-            <div class="column column-80 column-offset-10">
-                <h1 class="title">Swerve</h1>
-                <p>
-                    Swerve is a small-footprint, highly concurrent file server with super powers that makes local site development an absolute breeze.
-                    Serve static files (works great with <a href="https://webpack.js.org/">Webpack's</a> "watch" option), upload files and even mock responses with custom
-                    lua scripting.
-                </p>
-            </div>
-        </div>
-        <div class="row pad-10">
-            <div class="column column-80 column-offset-10" id="actions">
-                <a class="button" href="docs/installation.html">Read The Docs</a>
-                <a class="button button-outline" href="https://github.com/Commander-lol/rust-swerve/releases/tag/0.3.0">Downloads</a>
-            </div>
-        </div>
-        <div class="row pad-10">
-            <div class="column middle">
-                <img src="images/multi-files.svg" class="svg-image">
-                <h3>Highly Concurrent</h3>
-                <p>
-                    Swerve uses a configurable thread pool to handle requests. Don't let file loading be a hindrance to a tight development loop,
-                    and work on resource-heavy projects like Phaser games or chunked Webpack apps without a care in the world.
-                </p>
-            </div>
-            <div class="column middle">
-                <img src="images/config-code.svg" class="svg-image">
-                <h3>Config As Code</h3>
-                <p>
-                    Every configuration option for swerve is available both as a command line argument and as an option in a configuration file.
-                    Check your configuration into version control to make it available to the entire team, and override specifics via the CLI.
-                </p>
-            </div>
-            <div class="column middle">
-                <img src="images/lua.svg" class="svg-image">
-                <h3>Lua On Board</h3>
-                <p>
-                    Map URL paths to <a href="https://www.lua.org/home.html">Lua</a> scripts to handle more complex requests. Swerve provides a
-                    suite of utilities to Lua scripts for building HTTP responses, making it an incredibly powerful system for mocking server endpoints.
-                </p>
-            </div>
+
+<div class="container">
+    <div class="row pad-10">
+        <div class="column column-70 column-offset-20">
+            <h1>Versions</h1>
         </div>
     </div>
+    <div class="row">
+        <nav class="column column-20 sidebar">
+            <span class="section-header">The Basics</span>
+            <ul class="section">
+                <li><a href="docs/installation.html">Installation</a></li>
+                <li><a href="docs/usage.html">Usage</a></li>
+                <li><a href="docs/configuration.html">Configuration</a></li>
+            </ul>
+            <span class="section-header">Advanced Topics</span>
+            <ul class="section">
+                <li><a href="docs/the-lua-runtime.html">The Lua Runtime</a></li>
+            </ul>
+            <span class="section-header">Useful Links</span>
+            <ul class="section">
+                <li><a href="downloads.html">Downloads</a></li>
+                <li><a href="versions.html">Versions</a></li>
+            </ul>
+        </nav>
+        <div class="column column-70 column-offset-10">
+            <p>
+                This page provides a list of all public Swerve downloads. The primary downloads are hosted as Github releases,
+                but in some circumstances there may be additional mirrors provided. Use this list to quickly jump to a version:
+            </p>
+
+            <ul>
+                <li> <a href="#v0.3">v0.3</a></li>
+                <li> <a href="#v0.2">v0.2</a></li>
+                <li> <a href="#v0.1">v0.1</a></li>
+            </ul>
+
+
+            <a name="v0.3">
+                <h2>Version 0.3.0</h2>
+            </a>
+            <p>
+                This release saw the stable release of Lua support for scripted routes, as defined in the <code>config.yml</code> file.
+            </p>
+            <p>
+                You can see the full set of changes from
+                version 0.2.0 <a href="https://github.com/Commander-lol/rust-swerve/compare/0.2.0...0.3.0">on Github</a>
+            </p>
+            <blockquote>Version 0.3.0 is currently missing direct downloads, but the source code is still available on the <a href="https://github.com/Commander-lol/rust-swerve/releases/tag/0.3.0">release page</a></blockquote>
+
+
+            <a name="v0.2">
+                <h2>Version 0.2.0</h2>
+            </a>
+            <p>
+                This release introduced the idea of a configuration file that supports the options passed into swerve on the command line. This allows Swerve configuration to live
+                within the code base, being committed to version control, whilst still allowing options to be set via the command line for per-user customisation.
+            </p>
+            <p>
+                File upload support was also added in this release, and allows files to be persisted to disk when sent to the <code>/upload</code> path, or a path specified by the
+                user's configuration.
+            </p>
+            <p>
+                You can see the full set of changes from version 0.1.0 <a href="https://github.com/Commander-lol/rust-swerve/compare/v0.1.0...0.2.0">on Github</a>
+            </p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Platform</th>
+                        <th>Architecture</th>
+                        <th>Link</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Linux</td>
+                        <td>x64</td>
+                        <td><a href="https://github.com/Commander-lol/rust-swerve/releases/download/0.2.0/swerve.x86_64-unknown-linux-gnu">Download</a></td>
+                    </tr>
+                    <tr>
+                        <td>macOS</td>
+                        <td>x64</td>
+                        <td><a href="https://github.com/Commander-lol/rust-swerve/releases/download/0.2.0/swerve.x86_64-apple-darwin">Download</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <blockquote>
+                Archived source code for this release is available on the <a href="https://github.com/Commander-lol/rust-swerve/releases/tag/0.2.0">release page</a>
+            </blockquote>
+
+
+
+            <a name="v0.1">
+                <h2>Version 0.1.0</h2>
+            </a>
+            <p>
+                This release allowed the serving of static web files from specified directories, including the idiomatic "index.html" rendering for directory paths
+            </p>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>Platform</th>
+                    <th>Architecture</th>
+                    <th>Link</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Linux</td>
+                    <td>x64</td>
+                    <td><a href="https://github.com/Commander-lol/rust-swerve/releases/download/v0.1.0/swerve-x86_64-unknown-linux-gnu.tar.gz">Download</a></td>
+                </tr>
+                </tbody>
+            </table>
+            <blockquote>
+                Archived source code for this release is available on the <a href="https://github.com/Commander-lol/rust-swerve/releases/tag/v0.1.0">release page</a>
+            </blockquote>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

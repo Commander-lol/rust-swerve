@@ -21,14 +21,14 @@
     align-items: flex-start;
 }
 a:not(.button) {
-    text-decoration: underline !important;
+    text-decoration: underline;
 }
 
 a:not(.button) {
-    color: blue !important;
+    color: blue;
 }
 a:not(.button):visited {
-    color: purple !important;
+    color: purple;
 }
 
 nav.sidebar {
@@ -52,4 +52,9 @@ nav.sidebar {
 
 .sidebar .section li {
     list-style: none;
+}
+
+a:not([href]) {
+    color: initial;
+    text-decoration: initial;
 }
