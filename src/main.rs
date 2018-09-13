@@ -1,4 +1,4 @@
-#![feature(plugin)]
+#![feature(plugin, decl_macro)]
 #![feature(alloc_system)]
 #![plugin(rocket_codegen)]
 

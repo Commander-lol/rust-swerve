@@ -26,9 +26,9 @@ lto = true
 
 [dependencies]
 
-rocket = "0.3.8"
-rocket_codegen = "0.3.8"
-rocket_contrib = "0.3.8"
+rocket = "0.3.16"
+rocket_codegen = "0.3.16"
+rocket_contrib = "0.3.16"
 serde = "1"
 serde_derive = "1"
 docopt = "0.8"
